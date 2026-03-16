@@ -1,12 +1,10 @@
-version: 2
-
 models:
   - name: stg_tpch__customers
     description: Staged customer data from TPC-H benchmark.
     columns:
       - name: customer_key
         description: Primary key for customers.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -15,43 +13,46 @@ models:
     columns:
       - name: order_key
         description: Primary key for orders.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: customer_key
         description: Foreign key to customers.
-        tests:
+        data_tests:
           - not_null
           - relationships:
-              to: ref('stg_tpch__customers')
-              field: customer_key
+              arguments:
+                to: ref('stg_tpch__customers')
+                field: customer_key
 
   - name: stg_tpch__line_items
     description: Staged line item data from TPC-H benchmark.
     columns:
       - name: order_key
         description: Foreign key to orders.
-        tests:
+        data_tests:
           - not_null
           - relationships:
-              to: ref('stg_tpch__orders')
-              field: order_key
+              arguments:
+                to: ref('stg_tpch__orders')
+                field: order_key
       - name: line_number
         description: Line number within the order.
-        tests:
+        data_tests:
           - not_null
-    tests:
+    data_tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - order_key
-            - line_number
+          arguments:
+            combination_of_columns:
+              - order_key
+              - line_number
 
   - name: stg_tpch__nations
     description: Staged nation data from TPC-H benchmark.
     columns:
       - name: nation_key
         description: Primary key for nations.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -60,7 +61,7 @@ models:
     columns:
       - name: region_key
         description: Primary key for regions.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -69,7 +70,7 @@ models:
     columns:
       - name: part_key
         description: Primary key for parts.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -78,36 +79,40 @@ models:
     columns:
       - name: supplier_key
         description: Primary key for suppliers.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: nation_key
         description: Foreign key to nations.
-        tests:
+        data_tests:
           - not_null
           - relationships:
-              to: ref('stg_tpch__nations')
-              field: nation_key
+              arguments:
+                to: ref('stg_tpch__nations')
+                field: nation_key
 
   - name: stg_tpch__part_suppliers
     description: Staged part-supplier relationship data from TPC-H benchmark.
     columns:
       - name: part_key
         description: Part key, part of composite primary key.
-        tests:
+        data_tests:
           - not_null
           - relationships:
-              to: ref('stg_tpch__parts')
-              field: part_key
+              arguments:
+                to: ref('stg_tpch__parts')
+                field: part_key
       - name: supplier_key
         description: Supplier key, part of composite primary key.
-        tests:
+        data_tests:
           - not_null
           - relationships:
-              to: ref('stg_tpch__suppliers')
-              field: supplier_key
-    tests:
+              arguments:
+                to: ref('stg_tpch__suppliers')
+                field: supplier_key
+    data_tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - part_key
-            - supplier_key
+          arguments:
+            combination_of_columns:
+              - part_key
+              - supplier_key

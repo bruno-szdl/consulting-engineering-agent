@@ -2,7 +2,8 @@ name: 'tpch_analytics'
 version: '1.0.0'
 config-version: 2
 
-profile: 'databricks'
+dbt-cloud:
+    project-id: 516817
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]

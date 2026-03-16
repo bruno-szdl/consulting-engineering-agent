@@ -1,5 +1,3 @@
-version: 2
-
 models:
   - name: int_orders_with_customers
     description: Orders enriched with customer demographics and geography.

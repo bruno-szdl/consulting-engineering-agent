@@ -1,5 +1,3 @@
-version: 2
-
 models:
   - name: fct_orders
     description: >
@@ -8,7 +6,7 @@ models:
     columns:
       - name: order_key
         description: Primary key for orders.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -19,17 +17,18 @@ models:
     columns:
       - name: order_key
         description: Order key, part of composite primary key.
-        tests:
+        data_tests:
           - not_null
       - name: line_number
         description: Line number within the order, part of composite primary key.
-        tests:
+        data_tests:
           - not_null
-    tests:
+    data_tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - order_key
-            - line_number
+          arguments:
+            combination_of_columns:
+              - order_key
+              - line_number
 
   - name: dim_customers
     description: >
@@ -38,7 +37,7 @@ models:
     columns:
       - name: customer_key
         description: Primary key for customers.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -49,6 +48,6 @@ models:
     columns:
       - name: part_key
         description: Primary key for parts.
-        tests:
+        data_tests:
           - unique
           - not_null

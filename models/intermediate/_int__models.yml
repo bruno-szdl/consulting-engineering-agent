@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: int_orders_with_customers
+    description: Orders enriched with customer demographics and geography.
+
+  - name: int_line_items_with_parts
+    description: Line items enriched with product and supplier info, including computed discounted_price and charge_amount.

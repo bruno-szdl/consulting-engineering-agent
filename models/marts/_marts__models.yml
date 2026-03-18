@@ -2,7 +2,6 @@ models:
   - name: fct_orders
     description: >
       Order-grain fact table with aggregated line item metrics.
-      Primary performance-agent target due to deep lineage and large aggregation.
     columns:
       - name: order_key
         description: Primary key for orders.
@@ -31,23 +30,29 @@ models:
               - line_number
 
   - name: dim_customers
-    description: >
-      Customer dimension with lifetime metrics including total orders,
-      lifetime revenue, and first/most recent order dates.
+    description: Customer dimension with lifetime order and revenue metrics.
     columns:
       - name: customer_key
         description: Primary key for customers.
         data_tests:
-          - unique
-          - not_null
+          - not_null        # unique test intentionally removed — issue #2
 
   - name: dim_parts
-    description: >
-      Part dimension with supply chain summary including supplier count,
-      average/min supply cost, and total available quantity.
+    description: Part dimension with supply chain summary metrics.
     columns:
       - name: part_key
         description: Primary key for parts.
         data_tests:
-          - unique
-          - not_null
+          - not_null        # unique test intentionally removed — issue #2
+
+  - name: fct_supplier_performance
+    # No description: field — intentional gap for issue #3
+    columns:
+      - name: supplier_key
+        description: Supplier identifier.
+      - name: supplier_name
+        description: Supplier display name.
+      - name: ship_month
+        description: Calendar month of shipment.
+      - name: revenue_bracket
+        description: Revenue tier based on line item extended price.

@@ -25,3 +25,11 @@ models:
       +materialized: view
     marts:
       +materialized: table
+
+vars:
+  dbt_project_evaluator:
+    # Evaluator results will land in the default target schema + _evaluator suffix
+    # e.g. tpch_analytics_evaluator — confirm after first run
+    coverage_warn_count: 0
+    documentation_coverage_target: 80
+    test_coverage_target: 80

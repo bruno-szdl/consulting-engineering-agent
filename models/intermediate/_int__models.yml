@@ -3,4 +3,7 @@ models:
     description: Orders enriched with customer demographics and geography.
 
   - name: int_line_items_with_parts
-    description: Line items enriched with product and supplier info, including computed discounted_price and charge_amount.
+    description: Line items enriched with product and supplier info.
+
+  - name: int_order_items_enriched
+    description: Line items with revenue bracket classification for downstream analysis.

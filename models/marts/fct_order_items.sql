@@ -8,7 +8,7 @@
 
 with line_items as (
 
-    select * from {{ ref('int_line_items_with_parts') }}
+    select * from {{ ref('int_order_items_enriched') }}
 
     {% if is_incremental() %}
     where ship_date > (select max(ship_date) from {{ this }})
